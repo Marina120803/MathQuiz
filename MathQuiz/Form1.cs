@@ -153,12 +153,12 @@ namespace MathQuiz
         }
 
         private void sum_ValueChanged(object sender, EventArgs e)
-        {
+        
             {
                 CheckTheAnswerAndDoVoice(0);
             }
 
-        }
+        
 
         private void startButton_Click(object sender, EventArgs e)
         {

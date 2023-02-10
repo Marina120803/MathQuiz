@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -96,6 +96,32 @@ namespace MathQuiz
             else
                 return false;
         }
+        private void CheckTheAnswerAndDoVoice(int type = 0)
+        {
+            Boolean isCorrect = false;
+            switch (type)
+            {
+                case 0:
+                    isCorrect = addend1 + addend2 == sum.Value; break;
+                case 1: isCorrect = minuend - subtrahend == difference.Value; break;
+                case 2: isCorrect = (multiplicand * multiplier == product.Value); break;
+                case 3: isCorrect = (dividend / divisor == quotient.Value); break;
+
+            }
+            if (!isCorrect)
+            {
+                System.Media.SoundPlayer player =
+                new System.Media.SoundPlayer(@"d:\sounds\error.wav");
+                player.Play();
+            }
+            else
+            {
+                System.Media.SoundPlayer player =
+                new System.Media.SoundPlayer(@"d:\sounds\success.wav");
+                player.Play();
+
+            }
+        }
         public Form1()
         {
             InitializeComponent();
@@ -128,16 +154,10 @@ namespace MathQuiz
 
         private void sum_ValueChanged(object sender, EventArgs e)
         {
-            if (addend1+addend2!=sum.Value)
             {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"d:\sounds\error.wav");
-                player.Play();
+                CheckTheAnswerAndDoVoice(0);
             }
-            else
-            {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"d:\sounds\success.wav");
-                player.Play();
-            }
+
         }
 
         private void startButton_Click(object sender, EventArgs e)
@@ -229,6 +249,27 @@ namespace MathQuiz
             {
                 int lengthOfAnswer = answerBox.Value.ToString().Length;
                 answerBox.Select(0, lengthOfAnswer);
+            }
+        }
+
+        private void difference_ValueChanged(object sender, EventArgs e)
+        {
+            {
+                CheckTheAnswerAndDoVoice(1);
+            }
+        }
+
+        private void product_ValueChanged(object sender, EventArgs e)
+        {
+            {
+                CheckTheAnswerAndDoVoice(2);
+            }
+        }
+
+        private void quotient_ValueChanged(object sender, EventArgs e)
+        {
+            {
+                CheckTheAnswerAndDoVoice(3);
             }
         }
     }
